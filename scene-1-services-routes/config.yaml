@@ -1,0 +1,18 @@
+_format_version: "3.0"
+
+services:
+  - name: httpbin-service
+    host: httpbin.org
+    port: 443
+    protocol: https
+    tags:
+      - scene-1
+
+routes:
+  - name: json-route
+    service: httpbin-service
+    paths:
+      - /anything
+    strip_path: true
+    tags:
+      - scene-1

@@ -1,0 +1,61 @@
+_format_version: "3.0"
+
+services:
+  - name: payment-api-v1
+    host: httpbin.org
+    port: 443
+    protocol: https
+    path: /json
+    tags:
+      - scene-3
+      - v1
+
+  - name: payment-api-v2
+    host: httpbin.org
+    port: 443
+    protocol: https
+    path: /uuid
+    tags:
+      - scene-3
+      - v2
+
+routes:
+  - name: api-route
+    service: payment-api-v1
+    paths:
+      - /api
+    strip_path: true
+    tags:
+      - scene-3
+    plugins:
+      - name: rate-limiting
+        config:
+          minute: 10
+          policy: local
+          limit_by: consumer
+          hide_client_headers: false
+
+upstreams:
+  - name: api-backend
+    algorithm: weighted_round_robin
+    targets:
+      - target: httpbin.org:443
+        weight: 90
+        tags:
+          - v1
+
+      - target: httpbin.org:443
+        weight: 10
+        tags:
+          - v2
+
+plugins:
+  - name: rate-limiting
+    route: api-route
+    config:
+      minute: 10
+      policy: local
+      limit_by: consumer
+      hide_client_headers: false
+    tags:
+      - scene-3

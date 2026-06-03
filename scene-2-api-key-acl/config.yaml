@@ -1,0 +1,55 @@
+_format_version: "3.0"
+
+services:
+  - name: payment-service
+    host: httpbin.org
+    port: 443
+    protocol: https
+    path: /post
+    tags:
+      - scene-2
+
+routes:
+  - name: payment-route
+    service: payment-service
+    paths:
+      - /payments
+    strip_path: true
+    tags:
+      - scene-2
+    plugins:
+      - name: key-auth
+        config:
+          key_names:
+            - apikey
+          hide_credentials: true
+
+consumers:
+  - username: mobile-app
+    tags:
+      - scene-2
+    keyauth_credentials:
+      - key: mobile-key-12345
+    groups:
+      - premium
+
+  - username: web-app
+    tags:
+      - scene-2
+    keyauth_credentials:
+      - key: web-key-67890
+    groups:
+      - basic
+
+consumer_groups:
+  - name: premium
+  - name: basic
+
+plugins:
+  - name: acl
+    route: payment-route
+    config:
+      allow:
+        - premium
+    tags:
+      - scene-2
