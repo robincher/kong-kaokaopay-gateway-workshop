@@ -8,7 +8,7 @@ A **Service** represents your backend API. A **Route** is how clients access tha
 
 ## What You'll Deploy
 
-- **Service:** `httpbin-service` pointing to https://httpbin.org
+- **Service:** `httpbin-service` pointing to https://httpbin.konghq.com
 - **Route:** `json-route` accepting requests on path `/anything*`
 - **Host:** kaokaopay.example.com
 
@@ -27,7 +27,7 @@ bash test.sh
 ### Service
 ```yaml
 httpbin-service:
-  host: httpbin.org
+  host: httpbin.konghq.com
   port: 443
   protocol: https
 ```

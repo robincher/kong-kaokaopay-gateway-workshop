@@ -73,11 +73,11 @@ plugins:
 ```yaml
 services:
   - name: payment-api-v1
-    host: httpbin.org
+    host: httpbin.konghq.com
     port: 443
   
   - name: payment-api-v2
-    host: httpbin.org
+    host: httpbin.konghq.com
     port: 443
 
 routes:

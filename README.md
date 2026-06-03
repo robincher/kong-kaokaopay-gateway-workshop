@@ -82,7 +82,7 @@ deck validate -s config.yaml
 - Define Routes with paths and methods
 - Test traffic routing
 
-**Backend:** httpbin.org (mock service)
+**Backend:** httpbin.konghq.com (mock service)
 
 ---
 
@@ -162,7 +162,7 @@ kong-kaokaopay-gateway-workshop/
 
 - **Kong Konnect Serverless Gateway** - API Gateway
 - **decK** - Declarative configuration management
-- **httpbin.org** - Mock service for testing
+- **httpbin.konghq.com** - Mock service for testing
 - **curl** - API client for testing
 
 ---

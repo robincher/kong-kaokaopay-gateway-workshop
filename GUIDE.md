@@ -12,7 +12,7 @@ Before starting, verify you have:
 - [ ] Gateway URL and API token from Konnect dashboard
 - [ ] `curl` installed: `curl --version`
 - [ ] `deck` CLI installed: `deck version`
-- [ ] Internet connection to reach httpbin.org (mock service)
+- [ ] Internet connection to reach httpbin.konghq.com (mock service)
 
 **Quick deck install:**
 ```bash
@@ -36,6 +36,7 @@ Set your Kong Konnect credentials as environment variables:
 # Get these from Kong Konnect dashboard
 export KONNECT_ADDR="https://<your-gateway-id>.<region>.gateway.konnect.konghq.com"
 export KONNECT_TOKEN="<your-api-token>"
+export KONG_PROXY="<serverless-dataplane-proxy>"
 
 # Verify connection
 curl -H "Authorization: Bearer $KONNECT_TOKEN" $KONNECT_ADDR/services
@@ -54,7 +55,7 @@ curl -H "Authorization: Bearer $KONNECT_TOKEN" $KONNECT_ADDR/services
 
 ### Architecture
 ```
-Client → Kong Route → Kong Service → Backend (httpbin.org)
+Client → Kong Route → Kong Service → Backend (httpbin.konghq.com)
 ```
 
 ### Step-by-Step
@@ -66,7 +67,7 @@ cat config.yaml
 ```
 
 This defines:
-- Service named `httpbin-service` pointing to `https://httpbin.org`
+- Service named `httpbin-service` pointing to `https://httpbin.konghq.com`
 - Route named `json-route` matching path `/anything*`
 
 #### 1.2 Deploy Configuration
@@ -95,7 +96,7 @@ Look for `json-route` with path `/anything*`.
 #### 1.5 Test Routing
 ```bash
 # Send request through Kong
-curl -X GET "$KONNECT_ADDR/anything/test" \
+curl -X GET "$KONG_PROXY/anything/test" \
   -H "Host: kaokaopay.example.com"
 ```
 
@@ -170,7 +171,7 @@ export MOBILE_API_KEY="<key-value>"
 
 #### 2.5 Test Access - With Valid Key (Premium Group)
 ```bash
-curl -X GET "$KONNECT_ADDR/payments/status" \
+curl -X GET "$KONG_PROXY/payments/status" \
   -H "apikey: $MOBILE_API_KEY" \
   -H "Host: kaokaopay.example.com"
 ```
@@ -179,7 +180,7 @@ Expected: Success (200 OK) - mobile-app is in premium group
 
 #### 2.6 Test Access - Without Key (Should Fail)
 ```bash
-curl -X GET "$KONNECT_ADDR/payments/status" \
+curl -X GET "$KONG_PROXY/payments/status" \
   -H "Host: kaokaopay.example.com"
 ```
 
@@ -198,7 +199,7 @@ export WEB_API_KEY="<key-value>"
 
 #### 2.8 Test Access - With Basic Group Key (Should Fail)
 ```bash
-curl -X GET "$KONNECT_ADDR/payments/status" \
+curl -X GET "$KONG_PROXY/payments/status" \
   -H "apikey: $WEB_API_KEY" \
   -H "Host: kaokaopay.example.com"
 ```
@@ -257,7 +258,7 @@ deck sync -s config.yaml
 # Make 12 requests (limit is 10/min)
 for i in {1..12}; do
   echo "Request $i:"
-  curl -X GET "$KONNECT_ADDR/api/status" \
+  curl -X GET "$KONG_PROXY/api/status" \
     -H "Host: kaokaopay.example.com" \
     -w "\nHTTP Status: %{http_code}\n"
   sleep 1
@@ -268,7 +269,7 @@ Expected: First 10 succeed (200), 11-12 fail with 429 (Too Many Requests)
 
 #### 3.4 Verify Rate Limiting Headers
 ```bash
-curl -X GET "$KONNECT_ADDR/api/status" \
+curl -X GET "$KONG_PROXY/api/status" \
   -H "Host: kaokaopay.example.com" \
   -v
 ```
@@ -283,7 +284,7 @@ RateLimit-Reset: 1623456789
 Make multiple requests and observe traffic distribution:
 ```bash
 for i in {1..10}; do
-  curl -X GET "$KONNECT_ADDR/api/version" \
+  curl -X GET "$KONG_PROXY/api/version" \
     -H "Host: kaokaopay.example.com" | grep -o '"version":"[^"]*"'
 done
 ```
@@ -352,7 +353,7 @@ Expected: Headers like `X-Consumer-ID`, `X-Request-ID`
 
 #### 4.4 Test Response Transformation
 ```bash
-curl -X GET "$KONNECT_ADDR/api/data" \
+curl -X GET "$KONG_PROXY/api/data" \
   -H "Host: kaokaopay.example.com" \
   -i
 ```

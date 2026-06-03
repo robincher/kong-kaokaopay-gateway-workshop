@@ -2,7 +2,7 @@ _format_version: "3.0"
 
 services:
   - name: payment-service
-    host: httpbin.org
+    host: httpbin.konghq.com
     port: 443
     protocol: https
     path: /post

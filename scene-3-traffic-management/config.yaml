@@ -2,7 +2,7 @@ _format_version: "3.0"
 
 services:
   - name: payment-api-v1
-    host: httpbin.org
+    host: httpbin.konghq.com
     port: 443
     protocol: https
     path: /json
@@ -11,7 +11,7 @@ services:
       - v1
 
   - name: payment-api-v2
-    host: httpbin.org
+    host: httpbin.konghq.com
     port: 443
     protocol: https
     path: /uuid
@@ -39,12 +39,12 @@ upstreams:
   - name: api-backend
     algorithm: weighted_round_robin
     targets:
-      - target: httpbin.org:443
+      - target: httpbin.konghq.com:443
         weight: 90
         tags:
           - v1
 
-      - target: httpbin.org:443
+      - target: httpbin.konghq.com:443
         weight: 10
         tags:
           - v2
