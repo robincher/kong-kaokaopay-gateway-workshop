@@ -53,8 +53,11 @@ A **Service** represents your backend API. A **Route** is how clients access tha
 ## Quick Start
 
 ```bash
-# Deploy configuration
-deck sync -s config.yaml
+# Preview changes before applying
+deck gateway diff config.yaml
+
+# Deploy configuration (decK v1.40+)
+deck gateway sync config.yaml
 
 # Test the route
 bash test.sh

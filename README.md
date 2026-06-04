@@ -61,17 +61,20 @@ bash test.sh
 
 ### 3. Using decK for Configuration
 
-decK is Kong's declarative configuration tool:
+decK is Kong's declarative configuration tool (v1.40+):
 
 ```bash
 # Deploy configuration
-deck sync -s config.yaml
+deck gateway sync config.yaml
+
+# Preview changes before syncing
+deck gateway diff config.yaml
 
 # Export current gateway state
-deck dump
+deck gateway dump -o kong.yaml
 
 # Validate config
-deck validate -s config.yaml
+deck gateway validate config.yaml
 ```
 
 ---

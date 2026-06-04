@@ -15,15 +15,18 @@ Before starting, verify you have:
 - [ ] Internet connection to reach httpbin.konghq.com (mock service)
 
 **Quick deck install:**
+
+Latest decK version: **1.62.1** | [View all releases](https://github.com/Kong/deck/releases)
+
 ```bash
-# macOS
+# macOS (Homebrew - recommended)
 brew install kong/deck/deck
 
-# Linux
-curl https://github.com/Kong/deck/releases/download/v1.28.0/deck_1.28.0_linux_amd64.tar.gz | tar xz
-
-# Windows
+# macOS / Linux (Manual download)
 # Download from: https://github.com/Kong/deck/releases
+
+# Verify installation
+deck version
 ```
 
 ---
@@ -41,6 +44,32 @@ export KONG_PROXY="<serverless-dataplane-proxy>"
 # Verify connection
 curl -H "Authorization: Bearer $KONNECT_TOKEN" $KONNECT_ADDR/services
 ```
+
+## Common decK Gateway Commands
+
+Here are the modern decK commands (v1.40+) for managing Kong Gateway:
+
+```bash
+# Sync configuration file with Kong Gateway
+deck gateway sync config.yaml
+
+# Export current Kong Gateway state to a file
+deck gateway dump -o kong.yaml
+
+# Check differences between config file and Kong Gateway
+deck gateway diff config.yaml
+
+# Validate configuration file syntax
+deck gateway validate config.yaml
+
+# Test connection to Kong Gateway
+deck gateway ping
+
+# Generate completion scripts (bash, zsh, fish, powershell)
+deck completion bash
+```
+
+**Note:** Older versions of decK used commands like `deck sync`, `deck dump`, `deck validate`, `deck diff`. These are now under the `deck gateway` subcommand.
 
 ---
 
@@ -72,7 +101,11 @@ This defines:
 
 #### 1.2 Deploy Configuration
 ```bash
-deck sync -s config.yaml
+# Modern syntax (decK v1.40+)
+deck gateway sync config.yaml
+
+# Or with dry-run to preview changes first
+deck gateway diff config.yaml
 ```
 
 Output: Configuration applied to your Kong Serverless Gateway
@@ -147,7 +180,7 @@ This defines:
 
 #### 2.2 Deploy Configuration
 ```bash
-deck sync -s config.yaml
+deck gateway sync config.yaml
 ```
 
 #### 2.3 Get Consumer Details
@@ -250,7 +283,7 @@ This defines:
 
 #### 3.2 Deploy Configuration
 ```bash
-deck sync -s config.yaml
+deck gateway sync config.yaml
 ```
 
 #### 3.3 Test Rate Limiting
@@ -338,7 +371,7 @@ This defines:
 
 #### 4.2 Deploy Configuration
 ```bash
-deck sync -s config.yaml
+deck gateway sync config.yaml
 ```
 
 #### 4.3 Test Request Transformation
@@ -422,16 +455,19 @@ curl -H "Authorization: Bearer $KONNECT_TOKEN" \
   "$KONNECT_ADDR/services"
 ```
 
-### decK sync fails
+### decK gateway sync fails
 ```bash
-# Validate config syntax
-deck validate -s config.yaml
+# Validate config syntax (modern syntax)
+deck gateway validate config.yaml
 
-# Check for conflicts
-deck diff -s config.yaml
+# Check for conflicts/differences before syncing
+deck gateway diff config.yaml
 
-# Dry-run before syncing
-deck sync -s config.yaml --dry-run
+# Preview what will change (recommended before sync)
+deck gateway diff config.yaml
+
+# Sync with verbose output for troubleshooting
+deck gateway sync config.yaml --verbose 1
 ```
 
 ### Route not routing traffic
@@ -446,15 +482,55 @@ deck sync -s config.yaml --dry-run
 
 ---
 
+## Advanced decK Features
+
+Once you're comfortable with the basics, explore these advanced decK capabilities:
+
+### APIOps & Declarative Configuration
+```bash
+# Export your current gateway state as backup
+deck gateway dump -o backup.yaml
+
+# Manage configuration in Git
+git add config.yaml
+git commit -m "Add rate limiting to payment route"
+git push
+
+# CI/CD integration: Sync from Git
+deck gateway sync config.yaml --konnect-control-plane-name production
+```
+
+### File Manipulation Commands
+```bash
+# Convert OpenAPI spec to Kong configuration
+deck file openapi2kong -s api-spec.yaml -o kong-config.yaml
+
+# Merge multiple configuration files
+deck file merge services.yaml routes.yaml plugins.yaml -o merged.yaml
+
+# Validate merged configuration
+deck gateway validate merged.yaml
+```
+
+### Best Practices
+- Always run `deck gateway diff` before `deck gateway sync` to preview changes
+- Keep your `config.yaml` in version control (Git)
+- Use `deck gateway dump` regularly to backup current state
+- Test changes in a staging environment first
+- Use `--dry-run` or `deck gateway diff` to catch issues early
+
+---
+
 ## Next Steps
 
 After completing all scenes:
 
-1. **Combine Scenes:** Create a single config with all 4 use cases
+1. **Combine Scenes:** Create a single config with all 4 use cases using `deck file merge`
 2. **Add More Plugins:** Explore CORS, JWT, OAuth2
-3. **Production Setup:** Implement monitoring, logging, alerting
-4. **Scaling:** Deploy Kong in high-availability configuration
+3. **Production Setup:** Implement monitoring, logging, alerting with decK
+4. **GitOps:** Store configs in Git and use CI/CD for automatic deployments
+5. **APIOps:** Manage your API lifecycle with decK automation
 
 ---
 
-**Need Help?** Refer to [Kong Documentation](https://docs.konghq.com)
+**Need Help?** Refer to [Kong decK Documentation](https://developer.konghq.com/deck/)

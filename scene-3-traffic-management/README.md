@@ -96,8 +96,8 @@ Gradually increase v2 percentage as confidence builds.
 ## Quick Start
 
 ```bash
-# Deploy configuration
-deck sync -s config.yaml
+# Deploy configuration (decK v1.40+)
+deck gateway sync config.yaml
 
 # Test rate limiting and canary
 bash test.sh
