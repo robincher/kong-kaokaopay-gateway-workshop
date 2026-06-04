@@ -8,12 +8,12 @@ Modify API requests and responses in transit using transformation plugins.
 CLIENT REQUEST
      │
      │  Original Headers:
-     │  Host: kaokaopay.example.com
+     │  Host: kustomer.example.com
      │
      ▼
 ┌─────────────────────────────────────────────────────────┐
 │            REQUEST TRANSFORMER PLUGIN                    │
-│  • Add X-Consumer-ID: kaokaopay-user                    │
+│  • Add X-Consumer-ID: kustomer-user                    │
 │  • Add X-Request-ID: req-12345                          │
 │  • Add X-API-Version: 1.0                               │
 │  • Add X-Gateway: Kong                                  │
@@ -131,7 +131,7 @@ plugins:
 **Test request transformation:**
 ```bash
 curl -i -X GET "https://<gateway-url>/transform/data" \
-  -H "Host: kaokaopay.example.com"
+  -H "Host: kustomer.example.com"
 ```
 
 Look for added headers in the response from your backend showing what Kong added:
@@ -142,7 +142,7 @@ Look for added headers in the response from your backend showing what Kong added
 **Test response transformation:**
 ```bash
 curl -v -X GET "https://<gateway-url>/transform/data" \
-  -H "Host: kaokaopay.example.com" 2>&1 | grep -i "x-"
+  -H "Host: kustomer.example.com" 2>&1 | grep -i "x-"
 ```
 
 Look for response headers added by Kong:

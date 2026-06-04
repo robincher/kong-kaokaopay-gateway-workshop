@@ -119,7 +119,7 @@ curl -s -X GET "https://<gateway-url>/consumers/mobile-app/key-auth" \
 ```bash
 curl -X GET "https://<gateway-url>/payments/status" \
   -H "apikey: mobile-key-12345" \
-  -H "Host: kaokaopay.example.com"
+  -H "Host: kustomer.example.com"
 # Expected: 200 OK
 ```
 
@@ -127,14 +127,14 @@ curl -X GET "https://<gateway-url>/payments/status" \
 ```bash
 curl -X GET "https://<gateway-url>/payments/status" \
   -H "apikey: web-key-67890" \
-  -H "Host: kaokaopay.example.com"
+  -H "Host: kustomer.example.com"
 # Expected: 403 Forbidden
 ```
 
 **Test without key (should fail):**
 ```bash
 curl -X GET "https://<gateway-url>/payments/status" \
-  -H "Host: kaokaopay.example.com"
+  -H "Host: kustomer.example.com"
 # Expected: 401 Unauthorized
 ```
 

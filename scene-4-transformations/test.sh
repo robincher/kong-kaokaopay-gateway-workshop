@@ -50,7 +50,7 @@ echo "Sending request to trigger transformation"
 echo ""
 
 RESPONSE=$(curl -s -X POST "$KONNECT_ADDR/transform/data" \
-  -H "Host: kaokaopay.example.com" \
+  -H "Host: kustomer.example.com" \
   -H "Content-Type: application/json" \
   -d '{"message": "test"}')
 
@@ -80,7 +80,7 @@ echo "Test 4: Testing response transformation (checking response headers)..."
 echo ""
 
 RESPONSE=$(curl -s -i -X GET "$KONNECT_ADDR/transform/data" \
-  -H "Host: kaokaopay.example.com" 2>&1)
+  -H "Host: kustomer.example.com" 2>&1)
 
 echo "Response headers:"
 echo "$RESPONSE" | grep -i "^x-" || echo "No X- headers found in response"
@@ -112,7 +112,7 @@ echo "Test 5: Full request/response transformation flow..."
 echo ""
 
 RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "$KONNECT_ADDR/transform/data" \
-  -H "Host: kaokaopay.example.com" \
+  -H "Host: kustomer.example.com" \
   -H "Content-Type: application/json" \
   -H "X-Custom-Header: custom-value" \
   -d '{"test": "data"}')

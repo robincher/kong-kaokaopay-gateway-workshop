@@ -81,7 +81,7 @@
 
     <!-- Host -->
     <circle cx="100" cy="600" r="8" class="gateway"/>
-    <text x="130" y="605" class="text"><tspan font-weight="bold">Host:</tspan> kaokaopay.example.com</text>
+    <text x="130" y="605" class="text"><tspan font-weight="bold">Host:</tspan> kustomer.example.com</text>
   </g>
 
   <!-- Participant Actions -->

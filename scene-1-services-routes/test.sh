@@ -51,7 +51,7 @@ echo "Sending GET request to $KONNECT_ADDR/anything/test"
 echo ""
 
 RESPONSE=$(curl -s -X GET "$KONNECT_ADDR/anything/test" \
-  -H "Host: kaokaopay.example.com" \
+  -H "Host: kustomer.example.com" \
   -w "\n%{http_code}")
 
 HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)

@@ -22,7 +22,7 @@ routes:
         config:
           add:
             headers:
-              - X-Consumer-ID:kaokaopay-user
+              - X-Consumer-ID:kustomer-user
               - X-Request-ID:req-12345
               - X-API-Version:"1.0"
               - X-Gateway:Kong
@@ -43,7 +43,7 @@ plugins:
     config:
       add:
         headers:
-          - X-Consumer-ID:kaokaopay-user
+          - X-Consumer-ID:kustomer-user
           - X-Request-ID:req-12345
           - X-API-Version:"1.0"
           - X-Gateway:Kong

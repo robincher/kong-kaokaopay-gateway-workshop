@@ -140,7 +140,7 @@ routes:
 # Send 12 requests (limit is 10/min)
 for i in {1..12}; do
   curl -s -X GET "https://<gateway-url>/api/status" \
-    -H "Host: kaokaopay.example.com" \
+    -H "Host: kustomer.example.com" \
     -w "HTTP %{http_code}\n"
   sleep 1
 done
@@ -151,7 +151,7 @@ Expected: First 10 succeed (200), requests 11-12 fail (429)
 **Check rate limit headers:**
 ```bash
 curl -i -X GET "https://<gateway-url>/api/status" \
-  -H "Host: kaokaopay.example.com"
+  -H "Host: kustomer.example.com"
 ```
 
 Look for `RateLimit-*` headers
@@ -160,7 +160,7 @@ Look for `RateLimit-*` headers
 ```bash
 for i in {1..10}; do
   curl -s -X GET "https://<gateway-url>/api/version" \
-    -H "Host: kaokaopay.example.com" | grep version
+    -H "Host: kustomer.example.com" | grep version
 done
 ```
 

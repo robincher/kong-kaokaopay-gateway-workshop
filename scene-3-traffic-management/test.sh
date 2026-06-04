@@ -56,7 +56,7 @@ RATE_LIMITED_COUNT=0
 
 for i in {1..12}; do
   RESPONSE=$(curl -s -X GET "$KONNECT_ADDR/api/status" \
-    -H "Host: kaokaopay.example.com" \
+    -H "Host: kustomer.example.com" \
     -w "\n%{http_code}")
 
   HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
@@ -90,7 +90,7 @@ echo ""
 # Test 4: Check rate limit headers
 echo "Test 4: Inspecting rate limit headers..."
 RESPONSE=$(curl -s -i -X GET "$KONNECT_ADDR/api/status" \
-  -H "Host: kaokaopay.example.com" 2>&1)
+  -H "Host: kustomer.example.com" 2>&1)
 
 RATE_LIMIT_HEADER=$(echo "$RESPONSE" | grep -i "ratelimit-limit" || true)
 RATE_REMAINING=$(echo "$RESPONSE" | grep -i "ratelimit-remaining" || true)
@@ -115,7 +115,7 @@ V2_COUNT=0
 
 for i in {1..10}; do
   RESPONSE=$(curl -s -X GET "$KONNECT_ADDR/api/data" \
-    -H "Host: kaokaopay.example.com")
+    -H "Host: kustomer.example.com")
 
   # Check response source (v1 has /json endpoint, v2 has /uuid endpoint)
   if echo "$RESPONSE" | grep -q "json" || echo "$RESPONSE" | grep -q "true"; then

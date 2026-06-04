@@ -48,7 +48,7 @@ A **Service** represents your backend API. A **Route** is how clients access tha
 
 - **Service:** `httpbin-service` pointing to https://httpbin.konghq.com
 - **Route:** `json-route` accepting requests on path `/anything*`
-- **Host:** kaokaopay.example.com
+- **Host:** kustomer.example.com
 
 ## Quick Start
 
@@ -86,7 +86,7 @@ json-route:
 **Manual test:**
 ```bash
 curl -X GET "https://<gateway-url>/anything/test" \
-  -H "Host: kaokaopay.example.com"
+  -H "Host: kustomer.example.com"
 ```
 
 **Expected response:** JSON showing your request details from httpbin

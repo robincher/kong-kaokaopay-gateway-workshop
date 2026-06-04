@@ -15,7 +15,7 @@
   </defs>
 
   <!-- Main Title -->
-  <text x="500" y="35" class="title" text-anchor="middle">Kong API Gateway Workshop - KaokaoPay</text>
+  <text x="500" y="35" class="title" text-anchor="middle">Kong API Gateway Workshop - kustomer</text>
   <text x="500" y="60" class="label" text-anchor="middle">Four Independent Scenes | 2.5 Hours | Beginner Level</text>
 
   <!-- Scene 1 -->

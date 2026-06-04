@@ -130,7 +130,7 @@ Look for `json-route` with path `/anything*`.
 ```bash
 # Send request through Kong
 curl -X GET "$KONG_PROXY/anything/test" \
-  -H "Host: kaokaopay.example.com"
+  -H "Host: kustomer.example.com"
 ```
 
 Expected: Returns JSON response from httpbin showing your request details.
@@ -206,7 +206,7 @@ export MOBILE_API_KEY="<key-value>"
 ```bash
 curl -X GET "$KONG_PROXY/payments/status" \
   -H "apikey: $MOBILE_API_KEY" \
-  -H "Host: kaokaopay.example.com"
+  -H "Host: kustomer.example.com"
 ```
 
 Expected: Success (200 OK) - mobile-app is in premium group
@@ -214,7 +214,7 @@ Expected: Success (200 OK) - mobile-app is in premium group
 #### 2.6 Test Access - Without Key (Should Fail)
 ```bash
 curl -X GET "$KONG_PROXY/payments/status" \
-  -H "Host: kaokaopay.example.com"
+  -H "Host: kustomer.example.com"
 ```
 
 Expected: 401 Unauthorized - API key required
@@ -234,7 +234,7 @@ export WEB_API_KEY="<key-value>"
 ```bash
 curl -X GET "$KONG_PROXY/payments/status" \
   -H "apikey: $WEB_API_KEY" \
-  -H "Host: kaokaopay.example.com"
+  -H "Host: kustomer.example.com"
 ```
 
 Expected: 403 Forbidden - web-app is in basic group, route requires premium
@@ -292,7 +292,7 @@ deck gateway sync config.yaml
 for i in {1..12}; do
   echo "Request $i:"
   curl -X GET "$KONG_PROXY/api/status" \
-    -H "Host: kaokaopay.example.com" \
+    -H "Host: kustomer.example.com" \
     -w "\nHTTP Status: %{http_code}\n"
   sleep 1
 done
@@ -303,7 +303,7 @@ Expected: First 10 succeed (200), 11-12 fail with 429 (Too Many Requests)
 #### 3.4 Verify Rate Limiting Headers
 ```bash
 curl -X GET "$KONG_PROXY/api/status" \
-  -H "Host: kaokaopay.example.com" \
+  -H "Host: kustomer.example.com" \
   -v
 ```
 
@@ -318,7 +318,7 @@ Make multiple requests and observe traffic distribution:
 ```bash
 for i in {1..10}; do
   curl -X GET "$KONG_PROXY/api/version" \
-    -H "Host: kaokaopay.example.com" | grep -o '"version":"[^"]*"'
+    -H "Host: kustomer.example.com" | grep -o '"version":"[^"]*"'
 done
 ```
 
@@ -378,7 +378,7 @@ deck gateway sync config.yaml
 Make request and inspect headers that Kong added:
 ```bash
 curl -X GET "$KONNECT_ADDR/api/data" \
-  -H "Host: kaokaopay.example.com" \
+  -H "Host: kustomer.example.com" \
   -v 2>&1 | grep "X-"
 ```
 
@@ -387,7 +387,7 @@ Expected: Headers like `X-Consumer-ID`, `X-Request-ID`
 #### 4.4 Test Response Transformation
 ```bash
 curl -X GET "$KONG_PROXY/api/data" \
-  -H "Host: kaokaopay.example.com" \
+  -H "Host: kustomer.example.com" \
   -i
 ```
 
@@ -397,7 +397,7 @@ Look in response headers for `X-Response-Date` (added by response transformer)
 Modify `config.yaml` to add more headers:
 ```yaml
 add_headers:
-  - X-Custom-Header: kaokaopay-workshop
+  - X-Custom-Header: kustomer-workshop
   - X-API-Version: "1.0"
 ```
 

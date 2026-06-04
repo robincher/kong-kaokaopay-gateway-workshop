@@ -86,7 +86,7 @@
 
     <rect x="40" y="495" width="250" height="140" rx="8" class="request"/>
     <text x="165" y="520" class="code" font-weight="bold">Headers Added:</text>
-    <text x="60" y="545" class="code">• X-Consumer-ID: kaokaopay</text>
+    <text x="60" y="545" class="code">• X-Consumer-ID: kustomer</text>
     <text x="60" y="565" class="code">• X-Request-ID: req-12345</text>
     <text x="60" y="585" class="code">• X-API-Version: 1.0</text>
     <text x="60" y="605" class="code">• X-Gateway: Kong</text>

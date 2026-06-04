@@ -1,4 +1,4 @@
-# Kong API Gateway Workshop - KaokaoPay
+# Kong API Gateway Workshop - kustomer
 
 A hands-on workshop for developers and platform engineers to learn core Kong API Gateway use cases using Kong Konnect Serverless Gateway.
 
@@ -174,7 +174,7 @@ Monitor analytics in Konnect dashboard under **Analytics** section for each Serv
 ## File Structure
 
 ```
-kong-kaokaopay-gateway-workshop/
+kong-kustomer-gateway-workshop/
 ├── README.md                          (this file)
 ├── GUIDE.md                           (detailed step-by-step guide)
 ├── scene-1-services-routes/
@@ -214,4 +214,4 @@ For Kong Konnect Serverless Gateway: [Konnect Docs](https://docs.konghq.com/konn
 
 ---
 
-**Customer:** KaokaoPay | **Created:** June 2026
+**Customer:** kustomer | **Created:** June 2026

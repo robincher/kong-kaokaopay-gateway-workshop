@@ -46,7 +46,7 @@ echo ""
 # Test 3: Test without API key (should fail)
 echo "Test 3: Request without API key (should fail)..."
 RESPONSE=$(curl -s -X GET "$KONNECT_ADDR/payments/status" \
-  -H "Host: kaokaopay.example.com" \
+  -H "Host: kustomer.example.com" \
   -w "\n%{http_code}" 2>&1)
 
 HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
@@ -62,7 +62,7 @@ echo ""
 echo "Test 4: Request with mobile-app key (premium group - should succeed)..."
 RESPONSE=$(curl -s -X GET "$KONNECT_ADDR/payments/status" \
   -H "apikey: $MOBILE_KEY" \
-  -H "Host: kaokaopay.example.com" \
+  -H "Host: kustomer.example.com" \
   -w "\n%{http_code}")
 
 HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
@@ -78,7 +78,7 @@ echo ""
 echo "Test 5: Request with web-app key (basic group - should fail)..."
 RESPONSE=$(curl -s -X GET "$KONNECT_ADDR/payments/status" \
   -H "apikey: $WEB_KEY" \
-  -H "Host: kaokaopay.example.com" \
+  -H "Host: kustomer.example.com" \
   -w "\n%{http_code}")
 
 HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
