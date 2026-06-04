@@ -45,6 +45,9 @@ In this scene, you'll:
 - **Verify** canary traffic distribution: ~90% to v1, ~10% to v2
 - **Monitor** rate limit headers showing remaining quota
 
+### Detailed Context Diagram
+![Scene 3 Context Diagram](../diagrams/scene-3-context.svg)
+
 ## Overview
 
 Master two essential traffic management patterns:

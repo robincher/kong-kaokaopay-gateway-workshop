@@ -1,0 +1,129 @@
+<svg viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <style>
+      .box { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; }
+      .gateway { fill: #dbeafe; stroke: #3b82f6; stroke-width: 2; }
+      .backend { fill: #d1fae5; stroke: #10b981; stroke-width: 2; }
+      .request { fill: #f3d8ff; stroke: #c084fc; stroke-width: 2; }
+      .response { fill: #fce7f3; stroke: #ec4899; stroke-width: 2; }
+      .text { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #1f2937; }
+      .title { font-size: 18px; font-weight: bold; fill: #1f2937; }
+      .label { font-size: 12px; fill: #6b7280; }
+      .code { font-family: 'Courier New', monospace; font-size: 11px; fill: #1f2937; }
+      .arrow { stroke: #6b7280; stroke-width: 2; marker-end: url(#arrowhead); }
+      .arrowreverse { stroke: #6b7280; stroke-width: 2; marker-end: url(#arrowhead-rev); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#6b7280" />
+    </marker>
+    <marker id="arrowhead-rev" markerWidth="10" markerHeight="10" refX="1" refY="3" orient="auto">
+      <polygon points="10 0, 0 3, 10 6" fill="#6b7280" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="500" y="30" class="title" text-anchor="middle">Scene 4: Request &amp; Response Transformations</text>
+
+  <!-- Client -->
+  <rect x="40" y="80" width="140" height="90" rx="8" class="box"/>
+  <text x="110" y="115" class="text" text-anchor="middle" font-weight="bold">Client</text>
+  <text x="110" y="140" class="code" text-anchor="middle">GET /transform</text>
+  <text x="110" y="160" class="text" text-anchor="middle" font-size="11">HTTP Request</text>
+
+  <!-- Arrow Down -->
+  <path d="M 110 170 L 110 210" class="arrow"/>
+
+  <!-- REQUEST TRANSFORMER -->
+  <rect x="40" y="210" width="140" height="120" rx="8" class="request"/>
+  <text x="110" y="240" class="text" text-anchor="middle" font-weight="bold">Request</text>
+  <text x="110" y="260" class="text" text-anchor="middle" font-weight="bold">Transformer</text>
+  <text x="110" y="285" class="code" text-anchor="middle" font-size="9">Add Headers:</text>
+  <text x="110" y="300" class="code" text-anchor="middle" font-size="9">X-Consumer-ID</text>
+  <text x="110" y="315" class="code" text-anchor="middle" font-size="9">X-Request-ID</text>
+
+  <!-- Arrow Down -->
+  <path d="M 110 330 L 110 370" class="arrow"/>
+
+  <!-- Kong Gateway Box -->
+  <g>
+    <rect x="200" y="60" width="600" height="400" rx="8" class="gateway" fill="none" stroke-dasharray="5,5"/>
+    <text x="500" y="85" class="label" text-anchor="middle">KONG GATEWAY</text>
+
+    <!-- Service Box -->
+    <rect x="280" y="370" width="240" height="80" rx="8" class="gateway"/>
+    <text x="400" y="400" class="text" text-anchor="middle" font-weight="bold">Service</text>
+    <text x="400" y="425" class="text" text-anchor="middle" font-size="12">backend-api → httpbin.konghq.com</text>
+  </g>
+
+  <!-- Arrow to Service -->
+  <path d="M 180 270 L 280 410" class="arrow"/>
+
+  <!-- Backend -->
+  <rect x="280" y="510" width="240" height="80" rx="8" class="backend"/>
+  <text x="400" y="540" class="text" text-anchor="middle" font-weight="bold">Backend</text>
+  <text x="400" y="565" class="text" text-anchor="middle" font-size="12">httpbin.konghq.com</text>
+
+  <!-- Arrow Backend to Service -->
+  <path d="M 400 450 L 400 510" class="arrow"/>
+
+  <!-- RESPONSE TRANSFORMER -->
+  <rect x="600" y="210" width="140" height="120" rx="8" class="response"/>
+  <text x="670" y="240" class="text" text-anchor="middle" font-weight="bold">Response</text>
+  <text x="670" y="260" class="text" text-anchor="middle" font-weight="bold">Transformer</text>
+  <text x="670" y="285" class="code" text-anchor="middle" font-size="9">Add Headers:</text>
+  <text x="670" y="300" class="code" text-anchor="middle" font-size="9">X-Response-Date</text>
+  <text x="670" y="315" class="code" text-anchor="middle" font-size="9">X-Powered-By</text>
+
+  <!-- Arrow Backend response to Response Transformer -->
+  <path d="M 520 550 L 670 330" class="arrowreverse"/>
+
+  <!-- Arrow Response Transformer to Client -->
+  <path d="M 600 270 L 180 125" class="arrowreverse"/>
+
+  <!-- Transformation Details -->
+  <g>
+    <text x="40" y="470" class="title">Request Transformation</text>
+
+    <rect x="40" y="495" width="250" height="140" rx="8" class="request"/>
+    <text x="165" y="520" class="code" font-weight="bold">Headers Added:</text>
+    <text x="60" y="545" class="code">• X-Consumer-ID: kaokaopay</text>
+    <text x="60" y="565" class="code">• X-Request-ID: req-12345</text>
+    <text x="60" y="585" class="code">• X-API-Version: 1.0</text>
+    <text x="60" y="605" class="code">• X-Gateway: Kong</text>
+    <text x="60" y="625" class="code">• X-Timestamp: 2026-06-03</text>
+  </g>
+
+  <!-- Response Transformation Details -->
+  <g>
+    <text x="500" y="470" class="title">Response Transformation</text>
+
+    <rect x="500" y="495" width="250" height="140" rx="8" class="response"/>
+    <text x="625" y="520" class="code" font-weight="bold">Headers Added:</text>
+    <text x="520" y="545" class="code">• X-Response-Date: June-2026</text>
+    <text x="520" y="565" class="code">• X-Powered-By: Kong-Konnect</text>
+    <text x="520" y="585" class="code">• X-API-Handler: Transform</text>
+    <text x="520" y="605" class="code">• Access-Control-Allow-Origin</text>
+    <text x="520" y="625" class="code">  *</text>
+  </g>
+
+  <!-- Use Cases -->
+  <g>
+    <text x="40" y="680" class="title">Real-World Use Cases</text>
+
+    <text x="40" y="710" class="text">• Request Tracking: Add correlation IDs for debugging</text>
+    <text x="40" y="730" class="text">• Consumer Identification: Include consumer info for backend logging</text>
+    <text x="40" y="750" class="text">• Security: Add security headers (HSTS, CSP, X-Frame-Options)</text>
+  </g>
+
+  <!-- Participant Actions -->
+  <g>
+    <text x="500" y="680" class="title">Participant Actions</text>
+
+    <text x="500" y="710" class="text">1. Deploy Request Transformer plugin</text>
+    <text x="500" y="730" class="text">2. Deploy Response Transformer plugin</text>
+    <text x="500" y="750" class="text">3. Send requests and verify headers in responses</text>
+  </g>
+
+  <!-- Time estimate -->
+  <text x="500" y="795" class="label" text-anchor="middle" font-size="11">⏱️ 30 minutes - Deploy transformers, test request/response flow, verify headers</text>
+</svg>

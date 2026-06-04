@@ -10,6 +10,9 @@ A hands-on workshop for developers and platform engineers to learn core Kong API
 
 This workshop covers essential Kong API Gateway capabilities through four independent, practical scenarios. Each scene is self-contained and demonstrates real-world use cases you'll encounter when managing APIs at scale.
 
+### Quick Visual Overview
+![Workshop Overview Diagram](diagrams/overview-context.svg)
+
 ## Workshop Structure
 
 Four independent scenes, each ~30-40 minutes including setup and testing:

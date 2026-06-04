@@ -1,0 +1,108 @@
+<svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <style>
+      .scene { stroke-width: 2; }
+      .s1 { fill: #fef3c7; stroke: #f59e0b; }
+      .s2 { fill: #fecaca; stroke: #ef4444; }
+      .s3 { fill: #bfdbfe; stroke: #3b82f6; }
+      .s4 { fill: #d8b4fe; stroke: #a855f7; }
+      .text { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #1f2937; }
+      .title { font-size: 20px; font-weight: bold; fill: #1f2937; }
+      .subtitle { font-size: 16px; font-weight: bold; fill: #374151; }
+      .label { font-size: 12px; fill: #6b7280; }
+      .time { font-size: 11px; fill: #9ca3af; }
+    </style>
+  </defs>
+
+  <!-- Main Title -->
+  <text x="500" y="35" class="title" text-anchor="middle">Kong API Gateway Workshop - KaokaoPay</text>
+  <text x="500" y="60" class="label" text-anchor="middle">Four Independent Scenes | 2.5 Hours | Beginner Level</text>
+
+  <!-- Scene 1 -->
+  <g>
+    <rect x="20" y="90" width="220" height="180" rx="8" class="scene s1"/>
+    <text x="130" y="115" class="subtitle" text-anchor="middle">Scene 1</text>
+    <text x="130" y="135" class="text" text-anchor="middle" font-weight="bold">Services &amp; Routes</text>
+
+    <line x1="40" y1="150" x2="220" y2="150" stroke="#9ca3af" stroke-width="1"/>
+
+    <text x="130" y="170" class="text" text-anchor="middle" font-size="12">• Create Service</text>
+    <text x="130" y="190" class="text" text-anchor="middle" font-size="12">• Define Route</text>
+    <text x="130" y="210" class="text" text-anchor="middle" font-size="12">• Test Routing</text>
+
+    <text x="130" y="255" class="time" text-anchor="middle">30-40 minutes</text>
+  </g>
+
+  <!-- Scene 2 -->
+  <g>
+    <rect x="260" y="90" width="220" height="180" rx="8" class="scene s2"/>
+    <text x="370" y="115" class="subtitle" text-anchor="middle">Scene 2</text>
+    <text x="370" y="135" class="text" text-anchor="middle" font-weight="bold">API Key &amp; ACL</text>
+
+    <line x1="280" y1="150" x2="460" y2="150" stroke="#9ca3af" stroke-width="1"/>
+
+    <text x="370" y="170" class="text" text-anchor="middle" font-size="12">• Create Consumers</text>
+    <text x="370" y="190" class="text" text-anchor="middle" font-size="12">• Generate API Keys</text>
+    <text x="370" y="210" class="text" text-anchor="middle" font-size="12">• Control Access</text>
+
+    <text x="370" y="255" class="time" text-anchor="middle">40 minutes</text>
+  </g>
+
+  <!-- Scene 3 -->
+  <g>
+    <rect x="500" y="90" width="220" height="180" rx="8" class="scene s3"/>
+    <text x="610" y="115" class="subtitle" text-anchor="middle">Scene 3</text>
+    <text x="610" y="135" class="text" text-anchor="middle" font-weight="bold">Traffic Management</text>
+
+    <line x1="520" y1="150" x2="700" y2="150" stroke="#9ca3af" stroke-width="1"/>
+
+    <text x="610" y="170" class="text" text-anchor="middle" font-size="12">• Rate Limiting</text>
+    <text x="610" y="190" class="text" text-anchor="middle" font-size="12">• Canary Release</text>
+    <text x="610" y="210" class="text" text-anchor="middle" font-size="12">• Traffic Split</text>
+
+    <text x="610" y="255" class="time" text-anchor="middle">40 minutes</text>
+  </g>
+
+  <!-- Scene 4 -->
+  <g>
+    <rect x="740" y="90" width="220" height="180" rx="8" class="scene s4"/>
+    <text x="850" y="115" class="subtitle" text-anchor="middle">Scene 4</text>
+    <text x="850" y="135" class="text" text-anchor="middle" font-weight="bold">Transformations</text>
+
+    <line x1="760" y1="150" x2="940" y2="150" stroke="#9ca3af" stroke-width="1"/>
+
+    <text x="850" y="170" class="text" text-anchor="middle" font-size="12">• Request Headers</text>
+    <text x="850" y="190" class="text" text-anchor="middle" font-size="12">• Response Headers</text>
+    <text x="850" y="210" class="text" text-anchor="middle" font-size="12">• Enrich Requests</text>
+
+    <text x="850" y="255" class="time" text-anchor="middle">30 minutes</text>
+  </g>
+
+  <!-- Bottom Section - Key Info -->
+  <g>
+    <rect x="20" y="310" width="940" height="260" rx="8" fill="none" stroke="#d1d5db" stroke-width="1" stroke-dasharray="5,5"/>
+
+    <text x="500" y="335" class="subtitle" text-anchor="middle">Workshop Flow</text>
+
+    <!-- Prerequisites -->
+    <text x="40" y="365" class="text" font-weight="bold">✓ Prerequisites:</text>
+    <text x="60" y="385" class="text">Kong Konnect account with Serverless Gateway (US region)</text>
+    <text x="60" y="405" class="text">curl, deck CLI, Basic understanding of APIs/HTTP</text>
+
+    <!-- Setup -->
+    <text x="40" y="440" class="text" font-weight="bold">⚙️ Setup:</text>
+    <text x="60" y="460" class="text">export KONNECT_ADDR=https://&lt;gateway-url&gt;</text>
+    <text x="60" y="480" class="text">export KONNECT_TOKEN=&lt;api-token&gt;</text>
+
+    <!-- Each Scene -->
+    <text x="500" y="440" class="text" font-weight="bold">📋 Each Scene Includes:</text>
+    <text x="520" y="460" class="text">config.yaml (decK format pre-built configuration)</text>
+    <text x="520" y="480" class="text">README.md (detailed instructions &amp; diagrams)</text>
+    <text x="520" y="500" class="text">test.sh (curl commands for testing)</text>
+
+    <!-- All Independent -->
+    <text x="40" y="535" class="text" font-weight="bold">🎯 Key Features:</text>
+    <text x="60" y="555" class="text">All scenes are independent - participants can do them in any order or skip</text>
+    <text x="60" y="575" class="text">Uses httpbin.konghq.com as mock backend service</text>
+  </g>
+</svg>

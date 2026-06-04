@@ -49,6 +49,9 @@ In this scene, you'll:
 - **Verify** both request and response transformations in action
 - **Inspect** httpbin's echo to see what Kong added to your request
 
+### Detailed Context Diagram
+![Scene 4 Context Diagram](../diagrams/scene-4-context.svg)
+
 ## Overview
 
 Transform requests and responses to:

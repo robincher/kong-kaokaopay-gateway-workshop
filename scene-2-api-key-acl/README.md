@@ -44,6 +44,9 @@ In this scene, you'll:
 - **Configure** ACL plugin to restrict payment route to premium group only
 - **Test** access control: ✓ Premium access allowed, ✗ Basic access denied
 
+### Detailed Context Diagram
+![Scene 2 Context Diagram](../diagrams/scene-2-context.svg)
+
 ## Overview
 
 Implement API security through:

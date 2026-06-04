@@ -1,4 +1,4 @@
-# Kong API Gateway Workshop - Detailed Guide
+# Kong API Gateway Workshop - Walkthrough 
 
 Comprehensive step-by-step instructions for all workshop scenes.
 

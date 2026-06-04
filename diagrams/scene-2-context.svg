@@ -1,0 +1,125 @@
+<svg viewBox="0 0 1000 750" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <style>
+      .box { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; }
+      .gateway { fill: #dbeafe; stroke: #3b82f6; stroke-width: 2; }
+      .backend { fill: #d1fae5; stroke: #10b981; stroke-width: 2; }
+      .allowed { fill: #dcfce7; stroke: #22c55e; stroke-width: 2; }
+      .denied { fill: #fee2e2; stroke: #ef4444; stroke-width: 2; }
+      .text { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #1f2937; }
+      .title { font-size: 18px; font-weight: bold; fill: #1f2937; }
+      .label { font-size: 12px; fill: #6b7280; }
+      .arrow { stroke: #6b7280; stroke-width: 2; marker-end: url(#arrowhead); }
+      .check { fill: #22c55e; }
+      .cross { fill: #ef4444; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#6b7280" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="500" y="30" class="title" text-anchor="middle">Scene 2: API Key Authentication &amp; Consumer Groups (ACL)</text>
+
+  <!-- Client -->
+  <rect x="30" y="80" width="150" height="100" rx="8" class="box"/>
+  <text x="105" y="115" class="text" text-anchor="middle" font-weight="bold">Client</text>
+  <text x="105" y="140" class="text" text-anchor="middle" font-size="12">With API Key</text>
+  <text x="105" y="160" class="text" text-anchor="middle" font-size="11">apikey: xxx</text>
+
+  <!-- Kong Gateway -->
+  <g>
+    <rect x="220" y="60" width="500" height="280" rx="8" class="gateway" fill="none" stroke-dasharray="5,5"/>
+    <text x="470" y="85" class="label" text-anchor="middle">KONG GATEWAY</text>
+
+    <!-- Key Auth Plugin -->
+    <rect x="240" y="110" width="140" height="80" rx="8" class="gateway"/>
+    <text x="310" y="140" class="text" text-anchor="middle" font-weight="bold">Key Auth</text>
+    <text x="310" y="165" class="text" text-anchor="middle" font-size="11">Validate API Key</text>
+
+    <!-- Arrow to ACL -->
+    <path d="M 380 150 L 420 150" class="arrow"/>
+
+    <!-- ACL Check -->
+    <rect x="420" y="110" width="140" height="80" rx="8" class="gateway"/>
+    <text x="490" y="140" class="text" text-anchor="middle" font-weight="bold">ACL Check</text>
+    <text x="490" y="165" class="text" text-anchor="middle" font-size="11">Check Group Access</text>
+
+    <!-- Split to Allowed/Denied -->
+    <path d="M 490 190 L 390 250" class="arrow"/>
+    <path d="M 490 190 L 590 250" class="arrow"/>
+
+    <!-- Allowed - Premium -->
+    <rect x="310" y="250" width="130" height="70" rx="8" class="allowed"/>
+    <text x="375" y="275" class="text" text-anchor="middle" font-weight="bold">✓ Allowed</text>
+    <text x="375" y="295" class="text" text-anchor="middle" font-size="11">Premium Group</text>
+    <text x="375" y="310" class="text" text-anchor="middle" font-size="10">mobile-app</text>
+
+    <!-- Denied - Basic -->
+    <rect x="520" y="250" width="130" height="70" rx="8" class="denied"/>
+    <text x="585" y="275" class="text" text-anchor="middle" font-weight="bold">✗ Denied</text>
+    <text x="585" y="295" class="text" text-anchor="middle" font-size="11">Basic Group</text>
+    <text x="585" y="310" class="text" text-anchor="middle" font-size="10">web-app</text>
+  </g>
+
+  <!-- Allowed Path -->
+  <path d="M 375 320 L 375 380" class="arrow"/>
+
+  <!-- Denied Path -->
+  <path d="M 585 320 L 585 380" class="arrow"/>
+
+  <!-- Service -->
+  <rect x="320" y="380" width="140" height="80" rx="8" class="gateway"/>
+  <text x="390" y="410" class="text" text-anchor="middle" font-weight="bold">Service</text>
+  <text x="390" y="435" class="text" text-anchor="middle" font-size="12">payment-service</text>
+
+  <!-- Error Response -->
+  <rect x="520" y="380" width="140" height="80" rx="8" class="denied"/>
+  <text x="590" y="410" class="text" text-anchor="middle" font-weight="bold">403 Forbidden</text>
+  <text x="590" y="435" class="text" text-anchor="middle" font-size="11">Access Denied</text>
+
+  <!-- Backend -->
+  <rect x="320" y="520" width="140" height="80" rx="8" class="backend"/>
+  <text x="390" y="550" class="text" text-anchor="middle" font-weight="bold">Backend</text>
+  <text x="390" y="575" class="text" text-anchor="middle" font-size="11">httpbin.konghq.com</text>
+
+  <!-- Consumers Section -->
+  <g>
+    <text x="50" y="490" class="title">Consumers</text>
+
+    <!-- Mobile App -->
+    <circle cx="100" cy="540" r="8" class="allowed"/>
+    <text x="130" y="545" class="text"><tspan font-weight="bold">mobile-app</tspan> → Premium</text>
+
+    <!-- Web App -->
+    <circle cx="100" cy="580" r="8" class="denied"/>
+    <text x="130" y="585" class="text"><tspan font-weight="bold">web-app</tspan> → Basic</text>
+  </g>
+
+  <!-- Consumer Groups Section -->
+  <g>
+    <text x="520" y="490" class="title">Consumer Groups</text>
+
+    <!-- Premium -->
+    <circle cx="570" cy="540" r="8" class="allowed"/>
+    <text x="600" y="545" class="text"><tspan font-weight="bold">Premium:</tspan> Full access to payment route</text>
+
+    <!-- Basic -->
+    <circle cx="570" cy="580" r="8" class="denied"/>
+    <text x="600" y="585" class="text"><tspan font-weight="bold">Basic:</tspan> Restricted access (ACL enforced)</text>
+  </g>
+
+  <!-- Participant Actions -->
+  <g>
+    <text x="50" y="650" class="title">Participant Actions</text>
+
+    <text x="50" y="680" class="text">1. Create Consumers: mobile-app, web-app</text>
+    <text x="50" y="705" class="text">2. Generate API Keys for each consumer</text>
+
+    <text x="520" y="680" class="text">3. Create Consumer Groups (premium, basic)</text>
+    <text x="520" y="705" class="text">4. Configure ACL plugin on route</text>
+  </g>
+
+  <!-- Time estimate -->
+  <text x="500" y="740" class="label" text-anchor="middle" font-size="11">⏱️ 40 minutes - Test all scenarios (allowed, denied, missing key)</text>
+</svg>

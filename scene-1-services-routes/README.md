@@ -37,6 +37,9 @@ In this scene, you'll:
 - **Test** end-to-end traffic flow through Kong to the backend
 - **Verify** Kong's analytics captured your requests
 
+### Detailed Context Diagram
+![Scene 1 Context Diagram](../diagrams/scene-1-context.svg)
+
 ## Overview
 
 A **Service** represents your backend API. A **Route** is how clients access that service through Kong. Traffic flows: Client → Route → Service → Backend.
