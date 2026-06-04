@@ -1,8 +1,10 @@
-# Kong API Gateway Workshop - kustomer
+# Kong API Gateway Workshop - For Kustomer
 
 A hands-on workshop for developers and platform engineers to learn core Kong API Gateway use cases using Kong Konnect Serverless Gateway.
 
-**Duration:** 2.5 hours | **Level:** Beginner | **Audience:** Developers & Platform Engineers
+- **Duration:** 2.5 hours 
+- **Level:** Beginner 
+- **Audience:** Developers & Platform Engineers
 
 ---
 
