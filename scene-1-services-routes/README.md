@@ -2,6 +2,41 @@
 
 Learn Kong's fundamental routing concepts: Services and Routes.
 
+## Architecture Diagram
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        KONG GATEWAY                          │
+│                                                               │
+│  ┌──────────────┐         ┌─────────────┐                   │
+│  │ CLIENT       │         │   ROUTE     │                   │
+│  │ REQUEST      │────────→│ /anything   │                   │
+│  │ :path/any    │         │ *           │                   │
+│  └──────────────┘         └──────┬──────┘                   │
+│                                   │                          │
+│                            ┌──────▼──────┐                  │
+│                            │   SERVICE   │                  │
+│                            │ httpbin-svc │                  │
+│                            └──────┬──────┘                  │
+└─────────────────────────────────────┼──────────────────────┘
+                                      │
+                                      │ HTTPS
+                                      │
+                    ┌─────────────────▼──────────────────┐
+                    │  BACKEND                            │
+                    │  httpbin.konghq.com                │
+                    │  (Mock Service)                    │
+                    └───────────────────────────────────┘
+```
+
+## What You'll Do
+
+In this scene, you'll:
+- **Deploy** a Service pointing to a mock backend (httpbin.konghq.com)
+- **Create** a Route that accepts traffic on path `/anything`
+- **Test** end-to-end traffic flow through Kong to the backend
+- **Verify** Kong's analytics captured your requests
+
 ## Overview
 
 A **Service** represents your backend API. A **Route** is how clients access that service through Kong. Traffic flows: Client → Route → Service → Backend.

@@ -78,9 +78,16 @@ deck validate -s config.yaml
 ### Scene 1: Services & Routes
 **Goal:** Create and route API traffic through Kong
 
-- Create a Service pointing to mock backend
-- Define Routes with paths and methods
-- Test traffic routing
+**What Participants Do:**
+- Deploy a Service pointing to httpbin.konghq.com backend
+- Create a Route matching `/anything/*` path
+- Send requests through Kong and observe routing
+- Verify traffic in Kong Konnect analytics
+
+**Architecture:**
+```
+Client → Kong Route → Kong Service → httpbin.konghq.com
+```
 
 **Backend:** httpbin.konghq.com (mock service)
 
@@ -89,10 +96,19 @@ deck validate -s config.yaml
 ### Scene 2: API Key & ACL
 **Goal:** Secure APIs using credentials and Consumer Groups
 
-- Create Consumers
-- Enable API Key authentication
-- Organize Consumers in ACL Groups
-- Restrict route access to specific groups
+**What Participants Do:**
+- Create two Consumers: `mobile-app` (premium) and `web-app` (basic)
+- Generate API Key credentials for each consumer
+- Assign consumers to Consumer Groups
+- Configure ACL plugin to allow premium group only
+- Test access: ✓ Premium allowed, ✗ Basic denied
+
+**Architecture:**
+```
+Request + API Key → Kong Auth → ACL Check → 
+  ✓ Premium Group → Allowed
+  ✗ Basic Group → Forbidden
+```
 
 **Key Concepts:** Consumer Groups, Credentials, ACL Plugin
 
@@ -101,19 +117,36 @@ deck validate -s config.yaml
 ### Scene 3: Traffic Management
 **Goal:** Control traffic flow and enable gradual rollouts
 
-- **Rate Limiting:** Enforce request quotas per consumer
-- **Canary Release:** Route percentage of traffic to new service version
+**What Participants Do:**
+- Deploy rate limiting: 10 requests/minute per consumer
+- Configure two services for canary release (v1 stable, v2 new)
+- Test rate limiting: Send 12 requests (first 10 pass, 11-12 get 429)
+- Verify canary traffic split: ~90% to v1, ~10% to v2
+- Monitor rate limit headers in responses
 
-**Plugins:** Rate Limiting, Traffic Control
+**Architecture:**
+```
+Rate Limit Check → Traffic Split → 90% v1 (stable) / 10% v2 (canary)
+```
+
+**Plugins:** Rate Limiting, Traffic Control / Weighted Routing
 
 ---
 
 ### Scene 4: Request Transformations
 **Goal:** Modify requests and responses
 
-- Add/remove headers
-- Transform request body
-- Add custom response headers
+**What Participants Do:**
+- Deploy Request Transformer to add metadata headers
+- Deploy Response Transformer to enrich responses
+- Send requests and observe added headers
+- Verify httpbin echoes back the transformed request
+- Inspect response headers added by Kong
+
+**Architecture:**
+```
+Client Request → Add Headers → Backend → Add Response Headers → Client
+```
 
 **Plugins:** Request Transformer, Response Transformer
 

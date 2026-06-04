@@ -2,6 +2,49 @@
 
 Control API traffic flow and enable safe rollouts with gradual traffic migration.
 
+## Architecture Diagram
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                    KONG GATEWAY                               │
+│                                                                │
+│  RATE LIMITING CHECK        CANARY TRAFFIC SPLIT             │
+│  ┌──────────────────┐       ┌───────────────────┐            │
+│  │ Request Counter  │       │   Route Traffic   │            │
+│  │ 10 req/min limit │──────→│   90% : 10%       │            │
+│  └──────────────────┘       └────────┬──────────┘            │
+│                                       │                       │
+│                        ┌──────────────┼──────────────┐        │
+│                        │              │              │        │
+│                   ┌────▼────┐    ┌───▼─────┐       │        │
+│                   │  v1      │    │  v2     │       │        │
+│                   │ 90%      │    │ 10%     │       │        │
+│                   │ STABLE   │    │ CANARY  │       │        │
+│                   └────┬─────┘    └───┬─────┘       │        │
+│                        │              │             │        │
+│                        └──────────────┼──────────────┘        │
+│                                       │                       │
+│  ✓ Requests 1-10: PASS               │                       │
+│  ✗ Requests 11+: 429 RATE LIMITED    │                       │
+└──────────────────────────────────────┼────────────────────────┘
+                                       │ HTTPS
+                    ┌──────────────────┴──────────────────┐
+                    │                                     │
+        ┌───────────▼────────┐          ┌────────────────▼───┐
+        │ httpbin.konghq.com │          │ httpbin.konghq.com │
+        │ /json (v1)         │          │ /uuid (v2)         │
+        └────────────────────┘          └────────────────────┘
+```
+
+## What You'll Do
+
+In this scene, you'll:
+- **Deploy** rate limiting: Enforce 10 requests/minute per consumer
+- **Configure** two services for canary release (v1 and v2)
+- **Test** rate limiting: Send 12 requests, observe first 10 succeed and 11-12 fail with 429
+- **Verify** canary traffic distribution: ~90% to v1, ~10% to v2
+- **Monitor** rate limit headers showing remaining quota
+
 ## Overview
 
 Master two essential traffic management patterns:

@@ -2,6 +2,48 @@
 
 Secure APIs using credentials and access control with Consumer Groups.
 
+## Architecture Diagram
+
+```
+┌────────────────────────────────────────────────────────────┐
+│                      KONG GATEWAY                           │
+│                                                              │
+│  ┌─────────────────┐  ┌──────────────┐  ┌─────────────┐   │
+│  │ REQUEST + KEY   │  │ KEY AUTH     │  │   ACL       │   │
+│  │ apikey: xxxx    │→ │ Validate Key │→ │ Check Group │   │
+│  └─────────────────┘  └──────────────┘  └──────┬──────┘   │
+│                                                  │           │
+│                                      ┌───────────┴────────┐ │
+│                                      │                    │ │
+│                            ┌─────────▼─────┐   ┌─────────▼──┐
+│                            │  PREMIUM      │   │   BASIC    │
+│                            │  ✓ ALLOWED    │   │   ✗ DENIED │
+│                            │  mobile-app   │   │  web-app   │
+│                            └─────────┬─────┘   └────────────┘
+│                                      │
+│                            ┌─────────▼────────┐
+│                            │   SERVICE        │
+│                            │ payment-service  │
+│                            └──────────────────┘
+└────────────────────────────────────────────────────────────┘
+                              │
+                              │ HTTPS
+                              │
+                    ┌─────────▼──────────────┐
+                    │  BACKEND               │
+                    │  httpbin.konghq.com    │
+                    └────────────────────────┘
+```
+
+## What You'll Do
+
+In this scene, you'll:
+- **Create** two Consumers: `mobile-app` (premium) and `web-app` (basic)
+- **Generate** unique API Keys for each consumer
+- **Assign** consumers to Consumer Groups (premium/basic)
+- **Configure** ACL plugin to restrict payment route to premium group only
+- **Test** access control: ✓ Premium access allowed, ✗ Basic access denied
+
 ## Overview
 
 Implement API security through:

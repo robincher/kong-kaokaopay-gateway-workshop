@@ -2,6 +2,53 @@
 
 Modify API requests and responses in transit using transformation plugins.
 
+## Architecture Diagram
+
+```
+CLIENT REQUEST
+     │
+     │  Original Headers:
+     │  Host: kaokaopay.example.com
+     │
+     ▼
+┌─────────────────────────────────────────────────────────┐
+│            REQUEST TRANSFORMER PLUGIN                    │
+│  • Add X-Consumer-ID: kaokaopay-user                    │
+│  • Add X-Request-ID: req-12345                          │
+│  • Add X-API-Version: 1.0                               │
+│  • Add X-Gateway: Kong                                  │
+└──────────────────────┬──────────────────────────────────┘
+                       │
+                       ▼ Enhanced Request
+         ┌─────────────────────────────┐
+         │  BACKEND SERVICE            │
+         │  httpbin.konghq.com         │
+         │  (Receives enhanced request)│
+         └──────────────┬──────────────┘
+                        │
+                        ▼ Backend Response
+┌─────────────────────────────────────────────────────────┐
+│           RESPONSE TRANSFORMER PLUGIN                    │
+│  • Add X-Response-Date: June-2026                       │
+│  • Add X-Powered-By: Kong-Konnect                       │
+│  • Add Access-Control-Allow-Origin: *                   │
+└──────────────────────┬──────────────────────────────────┘
+                       │
+                       ▼ Enhanced Response
+                  CLIENT RECEIVES
+              Complete transformed
+            request and response flow
+```
+
+## What You'll Do
+
+In this scene, you'll:
+- **Deploy** Request Transformer plugin to add metadata headers
+- **Deploy** Response Transformer plugin to enrich responses
+- **Test** end-to-end transformation: Send request, observe added headers
+- **Verify** both request and response transformations in action
+- **Inspect** httpbin's echo to see what Kong added to your request
+
 ## Overview
 
 Transform requests and responses to:
