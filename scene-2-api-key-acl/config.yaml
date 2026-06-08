@@ -5,13 +5,14 @@ services:
     host: httpbin.konghq.com
     port: 443
     protocol: https
-    path: /post
+    path: /anything
     tags:
       - scene-2
 
 routes:
   - name: payment-route
-    service: payment-service
+    service:
+      name: payment-service
     paths:
       - /payments
     strip_path: true
@@ -31,7 +32,7 @@ consumers:
     keyauth_credentials:
       - key: mobile-key-12345
     groups:
-      - premium
+      - name: premium
 
   - username: web-app
     tags:
@@ -39,7 +40,7 @@ consumers:
     keyauth_credentials:
       - key: web-key-67890
     groups:
-      - basic
+      - name: basic
 
 consumer_groups:
   - name: premium
@@ -49,6 +50,7 @@ plugins:
   - name: acl
     route: payment-route
     config:
+      include_consumer_groups: true
       allow:
         - premium
     tags:

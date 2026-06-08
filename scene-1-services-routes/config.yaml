@@ -10,7 +10,8 @@ services:
 
 routes:
   - name: json-route
-    service: httpbin-service
+    service:
+      name: httpbin-service
     paths:
       - /anything
     strip_path: true
