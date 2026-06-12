@@ -2,10 +2,10 @@ _format_version: "3.0"
 
 services:
   - name: payment-api-v1
-    host: httpbin.konghq.com
+    host: api-backend    # upstream name
     port: 443
     protocol: https
-    path: /json
+    path: /headers
     tags:
       - scene-3
       - v1
@@ -21,7 +21,8 @@ services:
 
 routes:
   - name: api-route
-    service: payment-api-v1
+    service:
+      name: payment-api-v1
     paths:
       - /api
     strip_path: true
@@ -29,6 +30,7 @@ routes:
       - scene-3
     plugins:
       - name: rate-limiting
+        # enabled: false
         config:
           minute: 10
           policy: local
@@ -37,25 +39,28 @@ routes:
 
 upstreams:
   - name: api-backend
-    algorithm: weighted_round_robin
+    algorithm: round-robin
     targets:
+      # Hostname targets expand to one balancer slot per DNS A record.
+      # httpbin.konghq.com -> 1 IP, httpbin.org -> 8 IPs (as of workshop date).
+      # With weight 90/10 that becomes 90 vs 8*10=80 (~52/48), not 90/10.
       - target: httpbin.konghq.com:443
         weight: 90
         tags:
           - v1
 
-      - target: httpbin.konghq.com:443
-        weight: 10
+      - target: httpbin.org:443
+        weight: 1
         tags:
           - v2
 
-plugins:
-  - name: rate-limiting
-    route: api-route
-    config:
-      minute: 10
-      policy: local
-      limit_by: consumer
-      hide_client_headers: false
-    tags:
-      - scene-3
+# plugins:
+#   - name: rate-limiting
+#     route: api-route
+#     config:
+#       minute: 10
+#       policy: local
+#       limit_by: consumer
+#       hide_client_headers: false
+#     tags:
+#       - scene-3

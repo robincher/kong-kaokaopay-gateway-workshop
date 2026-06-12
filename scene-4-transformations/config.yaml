@@ -11,7 +11,8 @@ services:
 
 routes:
   - name: transform-route
-    service: backend-api
+    service:
+      name: backend-api
     paths:
       - /transform
     strip_path: true
@@ -37,28 +38,28 @@ routes:
               - X-API-Handler:Transformation-Scene
               - Access-Control-Allow-Origin:"*"
 
-plugins:
-  - name: request-transformer
-    route: transform-route
-    config:
-      add:
-        headers:
-          - X-Consumer-ID:kustomer-user
-          - X-Request-ID:req-12345
-          - X-API-Version:"1.0"
-          - X-Gateway:Kong
-          - X-Timestamp:2026-06-03
-    tags:
-      - scene-4
+# plugins:
+#   - name: request-transformer
+#     route: transform-route
+#     config:
+#       add:
+#         headers:
+#           - X-Consumer-ID:kustomer-user
+#           - X-Request-ID:req-12345
+#           - X-API-Version:"1.0"
+#           - X-Gateway:Kong
+#           - X-Timestamp:2026-06-03
+#     tags:
+#       - scene-4
 
-  - name: response-transformer
-    route: transform-route
-    config:
-      add:
-        headers:
-          - X-Response-Date:"June-2026"
-          - X-Powered-By:Kong-Konnect
-          - X-API-Handler:Transformation-Scene
-          - Access-Control-Allow-Origin:"*"
-    tags:
-      - scene-4
+#   - name: response-transformer
+#     route: transform-route
+#     config:
+#       add:
+#         headers:
+#           - X-Response-Date:"June-2026"
+#           - X-Powered-By:Kong-Konnect
+#           - X-API-Handler:Transformation-Scene
+#           - Access-Control-Allow-Origin:"*"
+#     tags:
+#       - scene-4
